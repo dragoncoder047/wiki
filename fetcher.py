@@ -13,4 +13,5 @@ for rule in rules_to_fetch:
     except Exception as e:
         print('Error fetching rule', rule, end=' ')
         print(e)
+        raise SystemExit(1)
 print('Done')
