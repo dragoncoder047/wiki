@@ -1,0 +1,43 @@
+@RULE Bliptile
+
+https://conwaylife.com/forums/viewtopic.php?p=39613#p39613
+
+@TREE
+
+num_states=4
+num_neighbors=4
+num_nodes=11
+1 0 1 1 2
+1 0 3 1 2
+2 0 0 0 1
+2 1 1 1 0
+3 2 2 2 3
+2 0 0 0 0
+3 3 3 3 5
+4 4 4 4 6
+3 5 5 5 5
+4 6 6 6 8
+5 7 7 7 9
+
+@TABLE
+n_states:4
+neighborhood:vonNeumann
+symmetries:permute
+#State 0: Ground 1:wire 3: head 2: tail
+var a = {0,1,2,3}
+var b = {0,1,2,3}
+var c = {0,1,2,3}
+var d = {0,1,2,3}
+#not head
+var e = {0,1,2}
+var f = {0,1,2}
+var g = {0,1,2}
+2,a,b,c,d,1
+3,a,b,c,d,2
+1,3,e,f,g,3
+
+@COLORS
+0 48  48  48
+1 255 0   0
+2 255 255 255
+3 0   0   255
