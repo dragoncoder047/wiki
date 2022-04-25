@@ -1,7 +1,7 @@
 import requests
 
 rules_to_fetch = [
-    'WireWorld',
+    'Bliptile',
 ]
 for rule in rules_to_fetch:
     print('fetching rule', rule)
