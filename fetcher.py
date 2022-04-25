@@ -1,4 +1,4 @@
-import urllib.request
+import requests
 
 rules_to_fetch = [
     'WireWorld',
@@ -6,12 +6,11 @@ rules_to_fetch = [
 for rule in rules_to_fetch:
     print('fetching rule', rule)
     try:
-        with urllib.request.urlopen(f'https://conwaylife.com/wiki/index.php?title=Rule:{rule}&action=raw') as response:
-           content = response.read()
+        resp = requests.get(f'https://www.conwaylife.com/wiki/index.php?title=Rule:{rule}&action=raw')
         with open(f'Rule:{rule}', 'w') as rf:
-            rf.write(content)
+            rf.write(resp.text)
     except Exception as e:
         print('Error fetching rule', rule, end=' ')
         print(e)
         raise SystemExit(1)
-print('Done')
+print('Fetched:', rules_to_fetch)
