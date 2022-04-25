@@ -19,7 +19,7 @@ jobs:
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add -A
-          git commit -m "[actions bot] fetched rules" -a
+          git commit -m "fetched rules" -a
       - name: push fetched files
         uses: ad-m/github-push-action@40bf560936a8022e68a3c00e7d2abefaf01305a6
         with:
