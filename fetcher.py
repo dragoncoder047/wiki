@@ -9,5 +9,5 @@ for rule in rules_to_fetch:
     with open(f'Rule:{rule}', 'w') as rf:
         rf.write(resp.text)
     if len(resp.text) == 0:
-        raise EOFError(f'No content for {rule}')
+        raise EOFError(f'got nothin\' for {rule}')
 print('Fetched:', rules_to_fetch)
