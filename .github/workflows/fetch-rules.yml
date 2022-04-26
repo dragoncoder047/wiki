@@ -2,6 +2,8 @@ name: fetch rules from conwaylife wiki
 on:
   push:
     branches: [main]
+    paths:
+      - fetcher.py
 jobs:
   fetch:
     runs-on: ubuntu-latest
