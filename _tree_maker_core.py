@@ -22,12 +22,18 @@ def rotate(t, by=1):
         t = t[1:] + (t[0],)
     return t
 
+def target_equal(l, t):
+    for actual, target in zip(l, t):
+        if (isinstance(target, int) and actual != target) or (isinstance(target, list) and actual not in target):
+            return False
+    return True
+
 def has_orth_seq(n, seq, reflect = True):
     #NW, NE, SW, SE, N, W, E, S, C
     l = len(seq)
     orths = n[4:8]
     for i in range(4):
-        if rotate(orths, i)[:l] == seq or (reflect and rotate(tuple(reversed(orths)), i)[:l] == tuple(reversed(seq))):
+        if target_equal(rotate(orths, i)[:l], seq) or (reflect and target_equal(rotate(tuple(reversed(orths)), i)[:l], tuple(reversed(seq)))):
             return True
     return False
 
