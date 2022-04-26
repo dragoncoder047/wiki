@@ -1,5 +1,7 @@
 # modified from https://sourceforge.net/p/golly/code/ci/master/tree/Scripts/Python/glife/RuleTree.py#l153
 
+from textwrap import dedent
+
 def getfilename(rule):
     return f'Rule:{rule}'
     
@@ -31,9 +33,9 @@ def rule(name, numStates, numNeighbors):
         # write out
         with open(getfilename(name), 'w') as f:
             f.write(f'@RULE {name}\n')
-            f.write(fun.__doc__[:fun.__doc__.find('@COLORS')])
+            f.write(dedent(fun.__doc__[:fun.__doc__.find('@COLORS')]))
             writeout(f)
-            f.write(fun.__doc__[fun.__doc__.find('@COLORS'):])
+            f.write(dedent(fun.__doc__[fun.__doc__.find('@COLORS'):]))
 
     def getNode(node):
         if node in world:
