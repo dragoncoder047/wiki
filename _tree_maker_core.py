@@ -14,6 +14,9 @@ def has_diagonal(n, s):
         if n[i] == s: return True
     return False
 
+def has_any(n, states):
+    return any(s in n for s in states)
+
 def rotate(t, by=1):
     for i in range(by):
         t = t[1:] + (t[0],)
