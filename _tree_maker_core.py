@@ -7,7 +7,9 @@ def rule(name, numStates, numNeighbors):
     '''
     @rule('Foo', numStates=5, numNeighbors=8)
     def function(n):
-        "Rule description here."
+        """Rule description here.
+    @COLORS
+    You can include a colors section."""
         return something()
 
     For vonNeumann neighborhood, inputs are: N,W,E,S,C
@@ -29,8 +31,9 @@ def rule(name, numStates, numNeighbors):
         # write out
         with open(getfilename(name), 'w') as f:
             f.write(f'@RULE {name}\n')
-            f.write(fun.__doc__)
+            f.write(fun.__doc__[:fun.__doc__.find('@COLORS')])
             writeout(f)
+            f.write(fun.__doc__[fun.__doc__.find('@COLORS'):])
 
     def getNode(node):
         if node in world:
