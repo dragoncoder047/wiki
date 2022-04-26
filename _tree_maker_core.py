@@ -19,24 +19,25 @@ def rotate(t, by=1):
         t = t[1:] + (t[0],)
     return t
 
-def has_orth_seq(n, seq):
+def has_orth_seq(n, seq, reflect = True):
     #NW, NE, SW, SE, N, W, E, S, C
+    l = len(seq)
     orths = n[4:8]
     for i in range(4):
-        if rotate(orths, i) == seq:
+        if rotate(orths, i)[:l] == seq or (reflect and rotate(tuple(reversed(orths)), i)[:l] == tuple(reversed(seq))):
             return True
     return False
 
-def has_diag_seq(n, seq):
+def has_diag_seq(n, seq, reflect = True):
     #NW, NE, SW, SE, N, W, E, S, C
-    raise SystemExit('todo')
+    l = len(seq)
     diags = n[0:4]
     for i in range(4):
-        if rotate(diags, i) == seq:
+        if rotate(diags, i) == seq or (reflect and rotate(tuple(reversed(orths)), i)[:l] == tuple(reversed(seq))):
             return True
     return False
 
-def has_3side(n, side, c=True, cc=True):
+def has_3side(n, side, c = True, cc = True):
     #0,  1,  2,  3,  4, 5, 6, 7
     #NW, NE, SW, SE, N, W, E, S, C
     sides = tuple()
@@ -49,7 +50,7 @@ def has_3side(n, side, c=True, cc=True):
     if c:
         sides += clockwise
     if reflect:
-        sides += tuple(*(tuple(*reversed(p)) for p in clockwise))
+        sides += tuple(tuple(reversed(p)) for p in clockwise)
     for i1, i2, i3 in sides:
         if (n[i1], n[i2], n[i3]) == side:
             return True
