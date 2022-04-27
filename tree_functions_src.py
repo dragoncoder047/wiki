@@ -71,7 +71,7 @@ def Fusion(n):
             return me
         return 10 # stay the same
     elif me == 10: # NTAA wire
-        raise 'todo'
+        raise Exception('todo')
     
     
     
