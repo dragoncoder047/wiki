@@ -2,8 +2,8 @@ name: build new rules from functions
 on:
   push:
     branches: [main]
-    paths:
-      - tree_functions_src.py
+#    paths:
+#      - tree_functions_src.py
 jobs:
   build-rules:
     runs-on: ubuntu-latest
