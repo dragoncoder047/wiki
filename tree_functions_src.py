@@ -83,7 +83,7 @@ def Fusion(n):
         return 10 # stay the same
     elif me == 10: # NTAA wire
         if not has_any(neighbors, [7, 8, 9, 10]): return 8 # make sure something bad doesn't happen: DECA cell
-        if has_orth_pattern(neighbors, [0, 0, [2, 5, 9], 0]): return 10 # can only turn on if not next to tail
+        if has_orth_seq(neighbors, [0, 0, [2, 5, 9], 0]): return 10 # can only turn on if not next to tail
         if sum(orthcounts[i] for i in (2, 3, 5, 6, 9, 10)) == 1 and sum(diagcounts[i] for i in (1, 3, 4, 6, 7, 8, 10)) == 2: # compute function
             return 7 if sum(diagcounts[i] for i in (1, 4, 7)) == 1 else 8
         else: # do nothing
