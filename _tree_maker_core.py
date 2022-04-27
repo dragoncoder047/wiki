@@ -107,6 +107,7 @@ def rule(name, numStates, numNeighbors):
     def getNode(node):
         nonlocal nodeSeq
         print(node, nodeSeq)
+        nodeSeq = nodeSeq # it complains
         if node in world:
             return world[node]
         else:
