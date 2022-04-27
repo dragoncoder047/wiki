@@ -95,6 +95,8 @@ def rule(name, numStates, numNeighbors):
 
     def decorator(f):
         nonlocal fun
+        nonlocal nodeSeq
+        nodeSeq = 0 # for some reason it complains
         fun = f
         recur(numParams)
         # write out
