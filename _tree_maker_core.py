@@ -19,7 +19,7 @@ def has_any(n, states):
 
 def rotate(t, by=1):
     for i in range(by):
-        t = t[1:] + (t[0],)
+        t = t[1:] + type(t)((t[0],))
     return t
 
 def target_equal(l, t):
