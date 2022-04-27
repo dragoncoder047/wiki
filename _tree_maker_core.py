@@ -95,8 +95,6 @@ def rule(name, numStates, numNeighbors):
 
     def decorator(f):
         nonlocal fun
-        nonlocal nodeSeq
-        nodeSeq = 0 # for some reason it complains
         fun = f
         recur(numParams)
         # write out
@@ -108,6 +106,7 @@ def rule(name, numStates, numNeighbors):
 
     def getNode(node):
         nonlocal nodeSeq
+        print(node, nodeSeq)
         if node in world:
             return world[node]
         else:
@@ -130,8 +129,9 @@ def rule(name, numStates, numNeighbors):
         f.write(f"num_states={numStates}\n")
         f.write(f"num_neighbors={numNeighbors}\n")
         f.write(f"num_nodes={len(seq)}\n")
-        for rule in seq:
-            f.write(' '.join(map(str,rule))+'\n')
+        for r in seq:
+            f.write(' '.join(map(str, r))+'\n')
+        f.write('\n')
         f.flush()
     
     return decorator
