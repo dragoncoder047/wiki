@@ -105,6 +105,7 @@ def rule(name, numStates, numNeighbors):
             f.write(dedent(fun.__doc__[fun.__doc__.find('@COLORS'):]))
 
     def getNode(node):
+        nonlocal nodeSeq
         if node in world:
             return world[node]
         else:
