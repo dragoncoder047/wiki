@@ -3,7 +3,7 @@ from _tree_maker_core import *
 @rule('Fusion', 11, 8)
 def Fusion(n):
     """
-    Fusion is a rule I devised that is a 'fusion' of many different wire-like rules:
+    Fusion is a rule I devised that is a 'fusion' of many different wire-like rules. It steals properties from:
     * Wireworld++ => tiny AND/XOR gates
     * NoTimeAtAll (Moore neighborhood variant) => stagnating signals
     * Digital => diagonal inputs, orthogonal outputs
