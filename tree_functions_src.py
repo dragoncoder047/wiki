@@ -3,11 +3,18 @@ from _tree_maker_core import *
 @rule('Fusion', 11, 8)
 def Fusion(n):
     """
-    Fusion is a rule I devised that is a 'fusion' of Wireworld++, NoTimeAtAll (Moore neighborhood variant), and DECA.
+    Fusion is a rule I devised that is a 'fusion' of many different wire-like rules:
+    * Wireworld++ => tiny AND/XOR gates
+    * NoTimeAtAll (Moore neighborhood variant) => stagnating signals
+    * Digital => diagonal inputs, orthogonal outputs
+    * DECA => tiny AND/ANDNOT gates
+    
+    States:
+    
     0. background
     1. strong head
     2. strong tail
-    3. string wire
+    3. strong wire
     4. weak head
     5. weak tail
     6. weak wire
@@ -31,12 +38,16 @@ def Fusion(n):
     
     neighbors, me = n[:-1], n[-1]
     orthneighbors = neighbors[4:8]
+    diagneighbors = neighbors[0:4]
     counts = [0] * 11
     orthcounts = [0] * 11
+    diagcounts = [0] * 11
     for i in neighbors:
         counts[i] += 1
     for i in orthneighbors:
         orthcounts[i] += 1
+    for i in diagneighbors:
+        diagcounts[i] += 1
 
     if me == 0: return 0 # background
     
@@ -71,7 +82,13 @@ def Fusion(n):
             return me
         return 10 # stay the same
     elif me == 10: # NTAA wire
-        raise Exception('todo')
+        if not has_any(neighbors, [7, 8, 9, 10]): return 8 # make sure something bad doesn't happen: DECA cell
+        if has_orth_pattern(neighbors, [0, 0, [2, 5, 9], 0]): return 10 # can only turn on if not next to tail
+        if sum(orthcounts[i] for i in (2, 3, 5, 6, 9, 10)) == 1 and sum(diagcounts[i] for i in (1, 3, 4, 6, 7, 8, 10)) == 2: # compute function
+            return 7 if sum(diagcounts[i] for i in (1, 4, 7)) == 1 else 8
+        else: # do nothing
+            return 10
+            
     
     
     
