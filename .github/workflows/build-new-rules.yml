@@ -5,7 +5,7 @@ on:
     paths:
       - tree_functions_src.py
 jobs:
-  fetch:
+  build-rules:
     runs-on: ubuntu-latest
     steps:
       - name: clone repo
