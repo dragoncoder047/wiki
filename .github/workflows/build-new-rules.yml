@@ -1,0 +1,33 @@
+name: build new rules from functions
+on:
+  push:
+    branches: [main]
+    paths:
+      - tree_functions_src.py
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: clone repo
+        uses: actions/checkout@v3
+      - name: set up python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.10.x
+#      - name: install dependencies
+#        run: |
+#          python3 -m pip install -U pip
+#          python3 -m pip install -r requirements.txt
+      - name: build rules
+        run: python3 tree_functions_src.py
+      - name: commit changes # copied from ad-m/github-push-action
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add -A
+          git commit -m "built new rules" -a
+      - name: push fetched files
+        uses: ad-m/github-push-action@40bf560936a8022e68a3c00e7d2abefaf01305a6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
