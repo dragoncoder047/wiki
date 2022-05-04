@@ -20,59 +20,6 @@ States:
 9: {NTAATail} NTAA tail
 10: {NTAAWire} NTAA wire
 
-neighbors, me = n[:-1], n[-1]
-orthneighbors = neighbors[4:8]
-diagneighbors = neighbors[0:4]
-counts = [0] * 11
-orthcounts = [0] * 11
-diagcounts = [0] * 11
-for i in neighbors:
-    counts[i] += 1
-for i in orthneighbors:
-    orthcounts[i] += 1
-for i in diagneighbors:
-    diagcounts[i] += 1
-
-if me == 0: return 0 # background
-
-elif me == 1: return 2 # strong head
-elif me == 2: return 3 # strong tail
-elif me == 3: # strong wire
-    if (counts[7] + counts[8] == 1) and (counts[3] + counts[6] in (1, 2)):
-        return 1 if counts[7] == 1 else 2 # change to head or tail if transition from NTAA
-    if counts[1] not in (1, 2) and counts[4] != 2: return 3 # wouldn't turn on anyway
-    if has_orth_seq(neighbors, [[3, 6], 7, [1, 4], 0]): return 6 # blocked by NTAA cell
-    return 1 # yay, can turn on
-elif me == 4: return 5 # weak head
-elif me == 5: return 6 # weak tail
-elif me == 6: # weak wire
-    if (counts[7] + counts[8] == 1) and (counts[3] + counts[6] in (1, 2)):
-        return 4 if counts[7] == 1 else 5 # change to head or tail if transition from NTAA
-    if counts[1] != 1 and counts[4] not in (1, 2): return 6 # wouldn't turn on anyway
-    if has_orth_seq(neighbors, [[3, 6], 7, [1, 4], 0]): return 6 # blocked by NTAA cell
-    return 4 # yay, can turn on
-elif me == 7 or me == 8: # NTAA head 1 or 0
-    if has_any(neighbors, [7, 8, 9, 10]): # behave as wire
-        if (has_any(neighbors, [7, 8]) and has_any(neighbors, [9])) or not has_any(neighbors, [10]):
-            return 9 # change to tail
-        return me # stay the same
-    else: # behave as DECA blocker cell
-        # swap state if has orth 2, 3, 5
-        if has_any(orthneighbors, [2, 3, 5]):
-            return 7 if me == 8 else 8
-        return me
-elif me == 9: # NTAA tail
-    if not (has_any(neighbors, [9]) and has_any(neighbors, [10])):
-        return me
-    return 10 # stay the same
-elif me == 10: # NTAA wire
-    if not has_any(neighbors, [7, 8, 9, 10]): return 8 # make sure something bad doesn't happen: DECA cell
-    if has_orth_seq(neighbors, [0, 0, [2, 5, 9], 0]): return 10 # can only turn on if not next to tail
-    if sum(orthcounts[i] for i in (2, 3, 5, 6, 9, 10)) == 1 and sum(diagcounts[i] for i in (1, 3, 4, 6, 7, 8, 10)) == 2: # compute function
-        return 7 if sum(diagcounts[i] for i in (1, 4, 7)) == 1 else 8
-    else: # do nothing
-        return 10
-
 @TABLE
 
 neighborhood: Moore
@@ -91,32 +38,33 @@ WeakWire, <12 / (StrongHead, NTAAHead1) / any - (StrongHead, NTAAHead1)>; WeakHe
 WeakWire, <1 / (WeakHead, NTAAHead1) / any - (WeakHead, NTAAHead1)>; WeakHead
 
 # NoTomeAtAll
-neighborhood: von Neumann
-symmetries: permute
-NTAAWire, any ~ 3, (NTAAHead0, NTAAHead1); NTAAWire # A wire with an adjacent head never turns to a head
-(NTAAHead0, NTAAHead1), (any - NTAAWire) ~ 4; NTAATail # A head only becomes tail if there is no wire
-NTAATail, (any - (NTAAHead0, NTAAHead1)) ~ 4; NTAAWire # A tail only becomes wire if there is no head
+symmetries: rotate4reflect
+NTAAWire, N (NTAAHead0, NTAAHead1); NTAAWire # A wire with an adjacent head never turns to a head
+notNTAAWire = any - NTAAWire
+(NTAAHead0, NTAAHead1), N notNTAAWire, S notNTAAWire, E notNTAAWire, W notNTAAWire; NTAATail # A head only becomes tail if there is no wire
+notNTAAHead = any - NTAAHead0 - NTAAHead1
+NTAATail, N notNTAAHead, S notNTAAHead, E notNTAAHead, W notNTAAHead; NTAAWire # A tail only becomes wire if there is no head
 
 # use NTAA heads as DECA red/green blocker states
-(NTAAHead0, NTAAHead1), (any - anyNTAA) ~ 3, (StrongHead, StrongTail, WeakHead); [0: (NTAAHead1, NTAAHead0)] # toggle when next to strong head, strong tail, or weak head and no NTAA neighbors
+notNTAA = any - anyNTAA
+(NTAAHead0, NTAAHead1), N (StrongHead, StrongTail, WeakHead), S notNTAAHead, E notNTAAHead, W notNTAAHead; [0: (NTAAHead1, NTAAHead0)] # toggle when next to strong head, strong tail, or weak head and no NTAA neighbors
 
 # NTAA XOR/Onehot gates
 symmetries: rotate4reflect
-NTAAWire, N (NTAAHead1, NTAAHead0), NTAAWire, [N], W (Background, NTAAWire); [W: (NTAAHead0, NTAAWire)]
-NTAAWire, N (NTAAHead1, NTAAHead0), NTAAWire, [N: (NTAAHead0, NTAAHead1)], W (Background, NTAAWire); [W: (NTAAHead1, NTAAWire)]
+NTAAWire, N (NTAAHead1, NTAAHead0), E NTAAWire, S [N], W (Background, NTAAWire); [W: (NTAAHead0, NTAAWire)]
+NTAAWire, N (NTAAHead1, NTAAHead0), E NTAAWire, S [N: (NTAAHead0, NTAAHead1)], W (Background, NTAAWire); [W: (NTAAHead1, NTAAWire)]
 symmetries: permute
 NTAAWire, NTAAWire ~ 2, anyNTAA ~ 2, NTAAWire
 NTAAWire, NTAAHead1, NTAAHead0 ~ 2, NTAAWire; NTAAHead1
 NTAAWire, (NTAAHead0, NTAAHead1) ~ 3, NTAAWire, NTAAHead0
 
 # activate when Wireworld++heads
-neighborhood: Moore
-symmetries: permute
 NTAAWire, (anyhead - anyNTAA) ~ 1; NTAAHead0
 NTAAWire, (anyhead - anyNTAA) ~ 2; NTAAHead1 
 
 
 @COLORS
+
 000: Background
 FF0: StrongHead
 770: StrongTail 
