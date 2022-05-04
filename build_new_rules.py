@@ -7,6 +7,6 @@ files = glob.glob('*.ruel')
 for file in files:
     rulename = file.rstrip('.ruel')
     exitcode = os.system(f'python3 -m nutshell transpile -vvvvsc {file} .')
-    if exitcode:
+    if exitcode > 0:
         sys.exit(exitcode)
     os.system(f'mv {rulename}.rule "Rule:{rulename}"')
