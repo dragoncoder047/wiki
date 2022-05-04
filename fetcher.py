@@ -2,6 +2,7 @@ import requests
 
 rules_to_fetch = [
     'Bliptile',
+    'NoTimeAtAll'
 ]
 for rule in rules_to_fetch:
     print('fetching rule', rule)

@@ -2,8 +2,7 @@ name: build new rules from functions
 on:
   push:
     branches: [main]
-#    paths:
-#      - tree_functions_src.py
+    paths: [*.ruel]
 jobs:
   build-rules:
     runs-on: ubuntu-latest
@@ -14,12 +13,12 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: 3.9.x
-#      - name: install dependencies
-#        run: |
-#          python3 -m pip install -U pip
-#          python3 -m pip install -r requirements.txt
+      - name: install Nutshell
+        run: |
+          python3 -m pip install -U pip
+          python3 -m pip install -U git+git://github.com/supposedly/nutshell.git
       - name: build rules
-        run: python3 tree_functions_src.py
+        run: python3 build-new-rules.py 
       - name: commit changes # copied from ad-m/github-push-action
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
