@@ -41,13 +41,13 @@ WeakWire, <1 / (WeakHead, NTAAHead1) / any - (WeakHead, NTAAHead1)>; WeakHead
 symmetries: rotate4reflect
 NTAAWire, N (NTAAHead0, NTAAHead1); NTAAWire # A wire with an adjacent head never turns to a head
 notNTAAWire = any - NTAAWire
-(NTAAHead0, NTAAHead1), N notNTAAWire, S notNTAAWire, E notNTAAWire, W notNTAAWire; NTAATail # A head only becomes tail if there is no wire
+(NTAAHead0, NTAAHead1), N notNTAAWire, E notNTAAWire, S notNTAAWire, W notNTAAWire; NTAATail # A head only becomes tail if there is no wire
 notNTAAHead = any - NTAAHead0 - NTAAHead1
-NTAATail, N notNTAAHead, S notNTAAHead, E notNTAAHead, W notNTAAHead; NTAAWire # A tail only becomes wire if there is no head
+NTAATail, N notNTAAHead, E notNTAAHead, S notNTAAHead, W notNTAAHead; NTAAWire # A tail only becomes wire if there is no head
 
 # use NTAA heads as DECA red/green blocker states
 notNTAA = any - anyNTAA
-(NTAAHead0, NTAAHead1), N (StrongHead, StrongTail, WeakHead), S notNTAAHead, E notNTAAHead, W notNTAAHead; [0: (NTAAHead1, NTAAHead0)] # toggle when next to strong head, strong tail, or weak head and no NTAA neighbors
+(NTAAHead0, NTAAHead1), N (StrongHead, StrongTail, WeakHead), E notNTAAHead, S notNTAAHead, W notNTAAHead; [0: (NTAAHead1, NTAAHead0)] # toggle when next to strong head, strong tail, or weak head and no NTAA neighbors
 
 # NTAA XOR/Onehot gates
 symmetries: rotate4reflect
