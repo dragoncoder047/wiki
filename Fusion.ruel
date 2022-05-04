@@ -97,16 +97,24 @@ NTAAWire, any ~ 3, (NTAAHead0, NTAAHead1); NTAAWire # A wire with an adjacent he
 (NTAAHead0, NTAAHead1), (any - NTAAWire) ~ 4; NTAATail # A head only becomes tail if there is no wire
 NTAATail, (any - (NTAAHead0, NTAAHead1)) ~ 4; NTAAWire # A tail only becomes wire if there is no head
 
-(NTAAHead0, NTAAHead1), (any - anyNTAA) ~ 3, (StrongHead, StrongTail, WeakHead); [0: (NTAAHead1, NTAAHead0)] # toggle when next to strong head, strong tail, or weak head and no NTAA neighbors
+# use NTAA heads as DECA red/green blocker states
+(NTAAHead0, NTAAHead1), (any - anyNTAA) ~ 3, (StrongHead, StrongTail, WeakHead); [0: [0] >> 1] # toggle when next to strong head, strong tail, or weak head and no NTAA neighbors
 
-# activate when heads
+# NTAA XOR/Onehot gates
+symmetries: rotate4reflect
+NTAAWire, N (NTAAHead1, NTAAHead0), NTAAWire, [N], W (Background, NTAAWire); [W: (NTAAHead0, NTAAWire)]
+NTAAWire, N (NTAAHead1, NTAAHead0), NTAAWire, [N: (NTAAHead0, NTAAHead1)], W (Background, NTAAWire); [W: (NTAAHead1, NTAAWire)]
+symmetries: permute
+NTAAWire, NTAAWire ~ 2, anyNTAA ~ 2, NTAAWire
+NTAAWire, NTAAHead1, NTAAHead0 ~ 2, NTAAWire; NTAAHead1
+NTAAWire, (NTAAHead0, NTAAHead1) ~ 3, NTAAWire, NTAAHead0
+
+# activate when Wireworld++heads
 neighborhood: Moore
 symmetries: permute
 NTAAWire, (anyhead - anyNTAA) ~ 1; NTAAHead0
-NTAAWire, (anyhead - anyNTAA) ~ 2; NTAAHead1
+NTAAWire, (anyhead - anyNTAA) ~ 2; NTAAHead1 
 
-
-DelibrateSyntaxError
 
 @COLORS
 000: Background
