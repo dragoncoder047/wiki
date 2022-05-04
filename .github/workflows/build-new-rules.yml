@@ -17,8 +17,11 @@ jobs:
         run: |
           python3 -m pip install -U pip
           git clone https://github.com/supposedly/nutshell.git
+          cd nutshell/
+          pip install -U .
+          cd ..
       - name: build rules
-        run: python3 build-new-rules.py 
+        run: python3 build_new_rules.py 
       - name: remove Nutshell folder
         run: rm -rf nutshell/
       - name: commit changes # copied from ad-m/github-push-action
