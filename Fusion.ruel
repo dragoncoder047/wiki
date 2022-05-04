@@ -78,8 +78,8 @@ elif me == 10: # NTAA wire
 neighborhood: Moore
 symmetries: permute
 
-var anyhead = (StrongHead, WeakHead, NTAAHead1, NTAAHead0)
-var anyNTAA = (NTAAHead1, NTAAHead0, NTAATail, NTAAWire)
+anyhead = (StrongHead, WeakHead, NTAAHead1, NTAAHead0)
+anyNTAA = (NTAAHead1, NTAAHead0, NTAATail, NTAAWire)
 
 # wireworld heads
 (StrongHead, StrongTail), any; [0: (StrongTail, StrongWire)]
@@ -92,12 +92,19 @@ WeakWire, <1 / (WeakHead, NTAAHead1) / any - (WeakHead, NTAAHead1)>; WeakHead
 
 # NoTomeAtAll
 neighborhood: von Neumann
-symmetries: permpue
+symmetries: permute
 NTAAWire, any ~ 3, (NTAAHead0, NTAAHead1); NTAAWire # A wire with an adjacent head never turns to a head
 (NTAAHead0, NTAAHead1), (any - NTAAWire) ~ 4; NTAATail # A head only becomes tail if there is no wire
 NTAATail, (any - (NTAAHead0, NTAAHead1)) ~ 4; NTAAWire # A tail only becomes wire if there is no head
 
-(NTAAHead0, NTAAHead1), (any - anyNTAA) ~ 3, (StrongHead, StrongTail, WeakHead); [0: (NTAAHead1, NTAAHead0)] # toggle when next to strong head, strong tail, or weak head
+(NTAAHead0, NTAAHead1), (any - anyNTAA) ~ 3, (StrongHead, StrongTail, WeakHead); [0: (NTAAHead1, NTAAHead0)] # toggle when next to strong head, strong tail, or weak head and no NTAA neighbors
+
+# activate when heads
+neighborhood: Moore
+symmetries: permute
+NTAAWire, (anyhead - anyNTAA) ~ 1; NTAAHead0
+NTAAWire, (anyhead - anyNTAA) ~ 2; NTAAHead1
+
 
 DelibrateSyntaxError
 
