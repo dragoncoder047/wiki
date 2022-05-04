@@ -8,17 +8,17 @@ Fusion is a rule I devised that is a 'fusion' of many different wire-like rules.
 
 States:
 
-0: {B} background
-1: {SH} strong head
-2: {ST} strong tail
-3: {SW} strong wire
-4: {WH} weak head
-5: {WT} weak tail
-6: {WW} weak wire
-7: {NH1} NTAA head 1
-8: {NH0} NTAA head 0
-9: {NT} NTAA tail
-10: {NW} NTAA wire
+0: {Background} background
+1: {StrongHead} strong head
+2: {StrongTail} strong tail
+3: {StrongWire} strong wire
+4: {WeakHead} weak head
+5: {WeakTail} weak tail
+6: {WeakWire} weak wire
+7: {NTAAHead1} NTAA head 1
+8: {NTAAHead0} NTAA head 0
+9: {NTAATail} NTAA tail
+10: {NTAAWire} NTAA wire
 
 neighbors, me = n[:-1], n[-1]
 orthneighbors = neighbors[4:8]
@@ -78,39 +78,39 @@ elif me == 10: # NTAA wire
 neighborhood: Moore
 symmetries: permute
 
-var anyhead = (SH, WH, NH1, NH0)
-var anyNTAA = (NH1, NH0, NT, NW)
+var anyhead = (StrongHead, WeakHead, NTAAHead1, NTAAHead0)
+var anyNTAA = (NTAAHead1, NTAAHead0, NTAATail, NTAAWire)
 
 # wireworld heads
-(SH, ST), any; [0: (ST, SW)]
-(WH, WT), any; [0: (WT, WW)]
+(StrongHead, StrongTail), any; [0: (StrongTail, StrongWire)]
+(WeakHead, WeakTail), any; [0: (WeakTail, WeakWire)]
 # wireworld transitions
-SW, <12 / (SH, NH1) / any - (SH, NH1)>; SH
-SW, <2 / (WH, NH1) / any - (WH, NH1)>; SH
-WW, <12 / (SH, NH1) / any - (SH, NH1)>; WH
-WW, <1 / (WH, NH1) / any - (WH, NH1)>; WH
+StrongWire, <12 / (StrongHead, NTAAHead1) / any - (StrongHead, NTAAHead1)>; StrongHead
+StrongWire, <2 / (WeakHead, NTAAHead1) / any - (WeakHead, NTAAHead1)>; StrongHead
+WeakWire, <12 / (StrongHead, NTAAHead1) / any - (StrongHead, NTAAHead1)>; WeakHead
+WeakWire, <1 / (WeakHead, NTAAHead1) / any - (WeakHead, NTAAHead1)>; WeakHead
 
 # NoTomeAtAll
 neighborhood: von Neumann
 symmetries: permpue
-NW, any ~ 3, (NH0, NH1); NW # A wire with an adjacent head never turns to a head
-(NH0, NH1), (any - NW) ~ 4; NT # A head only becomes tail if there is no wire
-NT, (any - (NH0, NH1)) ~ 4; NW # A tail only becomes wire if there is no head
+NTAAWire, any ~ 3, (NTAAHead0, NTAAHead1); NTAAWire # A wire with an adjacent head never turns to a head
+(NTAAHead0, NTAAHead1), (any - NTAAWire) ~ 4; NTAATail # A head only becomes tail if there is no wire
+NTAATail, (any - (NTAAHead0, NTAAHead1)) ~ 4; NTAAWire # A tail only becomes wire if there is no head
 
-(NH0, NH1), (any - anyNTAA) ~ 3, (SH, ST, WH); [0: (NH1, NH0)] # toggle when next to strong head, strong tail, or weak head
+(NTAAHead0, NTAAHead1), (any - anyNTAA) ~ 3, (StrongHead, StrongTail, WeakHead); [0: (NTAAHead1, NTAAHead0)] # toggle when next to strong head, strong tail, or weak head
 
 ousgbfioshfisghfoigsdfvigseiofgisegfisdfeh, wafyhwiawcfhosefh, wasyfcw9asi yfc <?>?S>EGS?>v?W>?@>3wq2?>/@#>*YB*(YN5?@>#%
 DelibrateSyntaxError
 
 @COLORS
-000: B
-FF0: SH
-770: ST 
-603: SW
-FFF: WH
-888: WT
-222: WW
-0F0: NH1
-F00: NH0
-777: NT
-007: NW
+000: Background
+FF0: StrongHead
+770: StrongTail 
+603: StrongWire
+FFF: WeakHead
+888: WeakTail
+222: WeakWire
+0F0: NTAAHead1
+F00: NTAAHead0
+777: NTAATail
+007: NTAAWire
