@@ -2,7 +2,7 @@
 
 Fusion is a rule I devised that is a 'fusion' of many different wire-like rules. It steals properties from:
 * Wireworld++ => tiny AND/XOR gates
-* NoTimeAtAll (Moore neighborhood variant) => stagnating signals
+* NoTimeAtAll => stagnating signals
 * Digital => diagonal inputs, orthogonal outputs
 * DECA => tiny AND/ANDNOT gates
 
@@ -99,7 +99,6 @@ NTAATail, (any - (NTAAHead0, NTAAHead1)) ~ 4; NTAAWire # A tail only becomes wir
 
 (NTAAHead0, NTAAHead1), (any - anyNTAA) ~ 3, (StrongHead, StrongTail, WeakHead); [0: (NTAAHead1, NTAAHead0)] # toggle when next to strong head, strong tail, or weak head
 
-ousgbfioshfisghfoigsdfvigseiofgisegfisdfeh, wafyhwiawcfhosefh, wasyfcw9asi yfc <?>?S>EGS?>v?W>?@>3wq2?>/@#>*YB*(YN5?@>#%
 DelibrateSyntaxError
 
 @COLORS
