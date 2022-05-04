@@ -8,17 +8,17 @@ Fusion is a rule I devised that is a 'fusion' of many different wire-like rules.
 
 States:
 
-0. background
-1. strong head
-2. strong tail
-3. strong wire
-4. weak head
-5. weak tail
-6. weak wire
-7. NTAA head 1
-8. NTAA head 0
-9. NTAA tail
-10. NTAA wire
+0: {B} background
+1: {SH} strong head
+2: {ST} strong tail
+3: {SW} strong wire
+4: {WH} weak head
+5: {WT} weak tail
+6: {WW} weak wire
+7: {NH1} NTAA head 1
+8: {NH0} NTAA head 0
+9: {NT} NTAA tail
+10: {NW} NTAA wire
 
 neighbors, me = n[:-1], n[-1]
 orthneighbors = neighbors[4:8]
@@ -75,19 +75,34 @@ elif me == 10: # NTAA wire
 
 @TABLE
 
+neighborhood: von Neumann
+symmetries: permute
+
+var anyhead = (SH, WH, NH1, NH0)
+var anyNTAA = (NH1, NH0, NT, NW)
+
+# wireworld heads
+(SH, ST), any; [0: (ST, SW)]
+(WH, WT), any; [0: (WT, WW)]
+# wireworld transitions
+SW, <12 / (SH, NH1) / any - (SH, NH1)>; SH
+SW, <2 / (WH, NH1) / any - (WH, NH1)>; SH
+WW, <12 / (SH, NH1) / any - (SH, NH1)>; WH
+WW, <1 / (WH, NH1) / any - (WH, NH1)>; WH
+
 
 ousgbfioshfisghfoigsdfvigseiofgisegfisdfeh, wafyhwiawcfhosefh, wasyfcw9asi yfc.
 DelibrateSyntaxError
 
 @COLORS
-0 0 0 0
-1 255 255 0
-2 127 127 0
-3 102 32 0
-4 255 255 255
-5 136 136 136
-6 34 34 34
-7 0 255 0
-8 255 0 0
-9 127 127 127
-10 0 0 127
+000: B
+FF0: SH
+770: ST 
+603: SW
+FFF: WH
+888: WT
+222: WW
+0F0: NH1
+F00: NH0
+777: NT
+007: NW
