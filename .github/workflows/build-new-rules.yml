@@ -2,7 +2,7 @@ name: build new rules from functions
 on:
   push:
     branches: [main]
-    paths: [*.ruel]
+    paths: ["*.ruel"]
 jobs:
   build-rules:
     runs-on: ubuntu-latest
