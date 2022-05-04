@@ -98,7 +98,7 @@ NTAAWire, any ~ 3, (NTAAHead0, NTAAHead1); NTAAWire # A wire with an adjacent he
 NTAATail, (any - (NTAAHead0, NTAAHead1)) ~ 4; NTAAWire # A tail only becomes wire if there is no head
 
 # use NTAA heads as DECA red/green blocker states
-(NTAAHead0, NTAAHead1), (any - anyNTAA) ~ 3, (StrongHead, StrongTail, WeakHead); [0: [0] >> 1] # toggle when next to strong head, strong tail, or weak head and no NTAA neighbors
+(NTAAHead0, NTAAHead1), (any - anyNTAA) ~ 3, (StrongHead, StrongTail, WeakHead); [0: (NTAAHead1, NTAAHead0)] # toggle when next to strong head, strong tail, or weak head and no NTAA neighbors
 
 # NTAA XOR/Onehot gates
 symmetries: rotate4reflect
