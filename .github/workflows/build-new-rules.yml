@@ -16,7 +16,7 @@ jobs:
       - name: install Nutshell
         run: |
           python3 -m pip install -U pip
-          gh repo clone supposedly/nutshell
+          git clone https://github.com/supposedly/nutshell.git
       - name: build rules
         run: python3 build-new-rules.py 
       - name: remove Nutshell folder
