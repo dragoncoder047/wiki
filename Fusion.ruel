@@ -19,6 +19,47 @@ States:
 8: {NTAAHead0} NTAA head 0
 9: {NTAATail} NTAA tail
 10: {NTAAWire} NTAA wire
+--------------NTAA Table----------
+0: blank
+1: wire {w}
+2: wire 0 {h0}
+3: wire 1 {h1}
+4: tail {t}
+
+@TABLE
+states: 5
+neighborhood: vonNeumann
+
+h = (h0, h1)
+ht = (h, t)
+wht = (w, ht)
+wt = (w, t)
+
+symmetries: permute
+
+# NEVER put a head where there would be an adjacent tail
+w, t, any ~ 3; w
+
+symmetries: rotate4reflect
+
+# Split at T
+w, w, h, w, --wht; [2]
+
+symmetries: permute
+
+# Signals wait at intersections
+w, w ~ 2, any ~ 2; w
+
+# Sum=1 signal combination
+w, h1, h1, any ~ 2; h0
+w, h, h0, --h1 ~ 2; [1]
+
+# Signals
+w, h, --h ~ 3; [1]
+h, --w ~ 4; t
+t, --h ~ 4; w
+
+-----------------
 
 @TABLE
 
@@ -40,9 +81,8 @@ WeakWire, <1 / (WeakHead, NTAAHead1) / any - (WeakHead, NTAAHead1)>; WeakHead
 # NoTomeAtAll
 symmetries: rotate4reflect
 NTAAWire, N (NTAAHead0, NTAAHead1); NTAAWire # A wire with an adjacent head never turns to a head
-notNTAAWire = any - NTAAWire
-(NTAAHead0, NTAAHead1), N notNTAAWire, E notNTAAWire, S notNTAAWire, W notNTAAWire; NTAATail # A head only becomes tail if there is no wire
-notNTAAHead = any - NTAAHead0 - NTAAHead1
+(NTAAHead0, NTAAHead1), N --NTAAWire, E --NTAAWiree, S --NTAAWire, W --NTAAWire; NTAATail # A head only becomes tail if there is no wire
+notNTAAHead = --(NTAAHead0, NTAAHead1)
 NTAATail, N notNTAAHead, E notNTAAHead, S notNTAAHead, W notNTAAHead; NTAAWire # A tail only becomes wire if there is no head
 
 # use NTAA heads as DECA red/green blocker states
