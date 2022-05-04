@@ -1,9 +1,12 @@
 import os
 import glob
+import sys
 
 files = glob.glob('*.ruel')
 
 for file in files:
     rulename = file.rstrip('.ruel')
-    os.system(f'python3 -m nutshell transpile -vvvvsc {file} .')
+    exitcode = os.system(f'python3 -m nutshell transpile -vvvvsc {file} .')
+    if exitcode:
+        sys.exit(exitcode)
     os.system(f'mv {rulename}.rule "Rule:{rulename}"')
