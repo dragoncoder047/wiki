@@ -81,7 +81,7 @@ WeakWire, <1 / (WeakHead, NTAAHead1) / any - (WeakHead, NTAAHead1)>; WeakHead
 # NoTomeAtAll
 symmetries: rotate4reflect
 NTAAWire, N (NTAAHead0, NTAAHead1); NTAAWire # A wire with an adjacent head never turns to a head
-(NTAAHead0, NTAAHead1), N --NTAAWire, E --NTAAWiree, S --NTAAWire, W --NTAAWire; NTAATail # A head only becomes tail if there is no wire
+(NTAAHead0, NTAAHead1), N --NTAAWire, E --NTAAWire, S --NTAAWire, W --NTAAWire; NTAATail # A head only becomes tail if there is no wire
 notNTAAHead = --(NTAAHead0, NTAAHead1)
 NTAATail, N notNTAAHead, E notNTAAHead, S notNTAAHead, W notNTAAHead; NTAAWire # A tail only becomes wire if there is no head
 
