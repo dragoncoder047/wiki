@@ -99,8 +99,8 @@ NTAAWire, NTAAHead1, NTAAHead0 ~ 2, NTAAWire; NTAAHead1
 NTAAWire, (NTAAHead0, NTAAHead1) ~ 3, NTAAWire, NTAAHead0
 
 # activate when Wireworld++heads
-NTAAWire, (anyhead - anyNTAA) ~ 1; NTAAHead0
-NTAAWire, (anyhead - anyNTAA) ~ 2; NTAAHead1 
+NTAAWire, (anyhead - anyNTAA) ~ 1, any; NTAAHead0
+NTAAWire, (anyhead - anyNTAA) ~ 2, any; NTAAHead1
 
 
 @COLORS
