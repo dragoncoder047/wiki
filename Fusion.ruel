@@ -84,6 +84,8 @@ StrongWire, <2 / (WeakHead, NTAAHead1) / any - (WeakHead, NTAAHead1)>; StrongHea
 WeakWire, <12 / (StrongHead, NTAAHead1) / any - (StrongHead, NTAAHead1)>; WeakHead
 WeakWire, <1 / (WeakHead, NTAAHead1) / any - (WeakHead, NTAAHead1)>; WeakHead
 
+# --------------DECA---------------
+
 symmetries: rotate4reflect
 # blocked by adjacent NTAA head1
 (WeakWire, StrongWire), N Background, E (WeakWire, StrongWire), S NTAAHead1, W anyhead; [0]
@@ -94,10 +96,11 @@ symmetries: permute
 symmetries: rotate4reflect
 (NTAAHead0, NTAAHead1), N (StrongHead, StrongTail, WeakHead), E notNTAAHead, S notNTAAHead, W notNTAAHead; [0: (NTAAHead1, NTAAHead0)] # toggle when next to strong head, strong tail, or weak head and no NTAA neighbors
 
+# ---------------some crossover------------
+
 # activate when Wireworld++heads
 NTAAWire, (anyhead - anyNTAA) ~ 1, any; NTAAHead0
 NTAAWire, (anyhead - anyNTAA) ~ 2, any; NTAAHead1
-
 
 @COLORS
 
