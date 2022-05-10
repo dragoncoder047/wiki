@@ -19,12 +19,15 @@ States:
 8: {NTAAHead0} NTAA head 0
 9: {NTAATail} NTAA tail
 10: {NTAAWire} NTAA wire
+11: {DECA1} DECA blocker head 1
+12: {DECA0} DECA blocker head 0
 
 
 @TABLE
 neighborhood: Moore
 anyNTAAHead = (NTAAHead0, NTAAHead1)
 anyhead = (StrongHead, WeakHead, anyNTAAHead)
+anyWW = (anyhead, WeakWire, StrongWire)
 anyNTAA = (anyNTAAHead, NTAATail, NTAAWire)
 anyNTAAHead = (NTAAHead0, NTAAHead1)
 
@@ -32,17 +35,10 @@ anyNTAAHead = (NTAAHead0, NTAAHead1)
 
 symmetries: rotate4reflect
 # blocked by adjacent NTAA head1
-(WeakWire, StrongWire), N Background, E (WeakWire, StrongWire), S NTAAHead1, W anyhead; [0]
+(WeakWire, StrongWire), N Background, E (WeakWire, StrongWire), S DECA1, W anyhead; [0]
 
-# use NTAA heads as DECA red/green blocker states
-symmetries: nutshell.AlternatingPermute
-(NTAAWire, NTAATail), --anyNTAA ~ 4, any ~ 4; NTAAHead0
-symmetries: permute
-# don't change at all if no NTAA neighbors
-anyNTAAHead, --anyNTAA ~ 8; [0]
-symmetries: rotate4reflect
-# toggle when next to strong head, strong tail, or weak head and no NTAA neighbors
-anyNTAAHead, N (StrongHead, StrongTail, WeakHead), E --anyNTAAHead, S --anyNTAAHead, W --anyNTAAHead; [0: anyNTAAHead >> 1]
+# toggle when lone head next to
+(DECA0, DECA1), NW --anyWW, N (anyhead, NTAATail, StrongTail), NW --anyWW, any; [0: (DECA1, DECA0)]
 
 # --------------NTAA--------------
 # 0: blank
@@ -114,7 +110,9 @@ FF0: StrongHead
 FFF: WeakHead
 888: WeakTail
 333: WeakWire
-0F0: NTAAHead1
-F00: NTAAHead0
+A0A: NTAAHead1
+707: NTAAHead0
 777: NTAATail
 007: NTAAWire
+F00: DECA0
+0F0: DECA1
