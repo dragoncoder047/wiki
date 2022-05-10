@@ -43,7 +43,7 @@ symmetries: nutshell.AlternatingPermute
 
 # NEVER put a head where there would be an adjacent tail
 # w, t, any ~ 3; w
-NTAAWire, N NTAATail; NTAAWire
+NTAAWire, NTAATail, any ~ 4, any ~ 3; NTAAWire
 
 symmetries: rotate4reflect
 
@@ -55,21 +55,23 @@ symmetries: nutshell.AlternatingPermute
 
 # Signals wait at intersections
 # w, w ~ 2, any ~ 2; w
-NTAAWire, N NTAAWire, E NTAAWire; NTAAWire
+NTAAWire, NTAAWire ~ 2, any ~ 4, any ~ 2; NTAAWire
 
 # Sum=1 signal combination
+
 # w, h1, h1, any ~ 2; h0
-NTAAWire, N NTAAHead1, E NTAAHead1; NTAAHead0
+NTAAWire, NTAAHead1 ~ 2, any ~ 4, any ~ 2; NTAAHead0
+
 # w, h, h0, --h1 ~ 2; [1]
-NTAAWire, N anyNTAAHead, E NTAAHead0, S --NTAAHead1, W --NTAAHead1; [N]
+NTAAWire, anyNTAAHead, any ~ 2, NTAAHead0, any ~ 2, --NTAAHead1 ~ 2; [1]
 
 # Signals
 # w, h, --h ~ 3; [1]
-NTAAWire, N anyNTAAHead, E --anyNTAAHead, S --anyNTAAHead, W --anyNTAAHead; [N]
+NTAAWire, anyNTAAHead, any ~ 2, --anyNTAAHead ~ 3, any ~ 2; [1]
 # h, --w ~ 4; t
-anyNTAAHead, N --NTAAWire, E --NTAAWire, S --NTAAWire, W --NTAAWire; NTAATail
+anyNTAAHead, --NTAAWire ~ 4, any ~ 4; NTAATail
 # t, --h ~ 4; w
-NTAATail, N --anyNTAAHead, E --anyNTAAHead, S --anyNTAAHead, W --anyNTAAHead; NTAAWire
+NTAATail, --anyNTAAHead ~ 4, any ~ 4; NTAAWire
 
 # -----------------Wireworld++-----------------
 
