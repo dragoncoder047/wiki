@@ -38,7 +38,7 @@ symmetries: rotate4reflect
 (WeakWire, StrongWire), N Background, E (WeakWire, StrongWire), S DECA1, W anyhead; [0]
 
 # toggle when lone head next to
-(DECA0, DECA1), NW --anyWW, N (anyhead, NTAATail, StrongTail), NW --anyWW, any; [0: (DECA1, DECA0)]
+(DECA0, DECA1), NW --anyWW, N (anyhead, NTAATail, StrongTail), NE --anyWW, any; [0: (DECA1, DECA0)]
 
 # --------------NTAA--------------
 # 0: blank
