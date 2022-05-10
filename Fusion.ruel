@@ -98,8 +98,8 @@ WeakWire, <1 / (StrongHead, NTAAHead1) / any - (StrongHead, NTAAHead1)>; WeakHea
 
 # activate when Wireworld++heads
 symmetries: permute
-NTAAWire, (anyhead - anyNTAA) ~ 1, any; NTAAHead0
 NTAAWire, (anyhead - anyNTAA) ~ 2, any; NTAAHead1
+NTAAWire, (anyhead - anyNTAA) ~ 1, any; NTAAHead0
 
 @COLORS
 
