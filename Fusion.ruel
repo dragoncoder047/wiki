@@ -38,7 +38,8 @@ symmetries: rotate4reflect
 symmetries: nutshell.AlternatingPermute
 (NTAAWire, NTAATail), --anyNTAA ~ 4, any ~ 4; NTAAHead0
 symmetries: rotate4reflect
-(NTAAHead0, NTAAHead1), N (StrongHead, StrongTail, WeakHead), E --anyNTAAHead, S --anyNTAAHead, W --anyNTAAHead; [0: (NTAAHead1, NTAAHead0)] # toggle when next to strong head, strong tail, or weak head and no NTAA neighbors
+# toggle when next to strong head, strong tail, or weak head and no NTAA neighbors
+(NTAAHead0, NTAAHead1), N (StrongHead, StrongTail, WeakHead), E --anyNTAAHead, S --anyNTAAHead, W --anyNTAAHead; [0: (NTAAHead1, NTAAHead0)]
 
 # --------------NTAA--------------
 # 0: blank
