@@ -29,7 +29,6 @@ anyNTAAHead = (NTAAHead0, NTAAHead1)
 anyhead = (StrongHead, WeakHead, anyNTAAHead)
 anyWW = (anyhead, WeakWire, StrongWire)
 anyNTAA = (anyNTAAHead, NTAATail, NTAAWire)
-anyNTAAHead = (NTAAHead0, NTAAHead1)
 
 # --------------DECA---------------
 
