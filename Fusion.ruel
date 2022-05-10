@@ -79,8 +79,8 @@ symmetries: permute
 # wireworld++ transitions
 StrongWire, <12 / (StrongHead, NTAAHead1) / any - (StrongHead, NTAAHead1)>; StrongHead
 StrongWire, <2 / (WeakHead, NTAAHead1) / any - (WeakHead, NTAAHead1)>; StrongHead
-WeakWire, <12 / (StrongHead, NTAAHead1) / any - (StrongHead, NTAAHead1)>; WeakHead
-WeakWire, <1 / (WeakHead, NTAAHead1) / any - (WeakHead, NTAAHead1)>; WeakHead
+WeakWire, <12 / (WeakHead, NTAAHead1) / any - (WeakHead, NTAAHead1)>; WeakHead
+WeakWire, <1 / (StrongHead, NTAAHead1) / any - (StrongHead, NTAAHead1)>; WeakHead
 
 # --------------DECA---------------
 
