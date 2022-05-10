@@ -41,25 +41,21 @@ anyNTAAHead = (NTAAHead0, NTAAHead1)
 # wt = (w, t)
 
 symmetries: nutshell.AlternatingPermute
-
 # NEVER put a head where there would be an adjacent tail
 # w, t, any ~ 3; w
 NTAAWire, NTAATail, any ~ 4, any ~ 3; NTAAWire
 
 symmetries: rotate4reflect
-
 # Split at T
 # w, w, h, w, --wht; [2]
 NTAAWire, N NTAAWire, E anyNTAAHead, S NTAAWire, W --anyNTAA; [E]
 
 symmetries: nutshell.AlternatingPermute
-
 # Signals wait at intersections
 # w, w ~ 2, any ~ 2; w
 NTAAWire, NTAAWire ~ 2, any ~ 4, any ~ 2; NTAAWire
 
 # Sum=1 signal combination
-
 # w, h1, h1, any ~ 2; h0
 NTAAWire, NTAAHead1 ~ 2, any ~ 4, any ~ 2; NTAAHead0
 
@@ -77,7 +73,6 @@ NTAATail, --anyNTAAHead ~ 4, any ~ 4; NTAAWire
 # -----------------Wireworld++-----------------
 
 symmetries: permute
-
 # wireworld heads go immediately to tail
 (StrongHead, StrongTail), any; [0: (StrongTail, StrongWire)]
 (WeakHead, WeakTail), any; [0: (WeakTail, WeakWire)]
