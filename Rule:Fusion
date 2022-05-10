@@ -23,12 +23,7 @@ States:
 8: NTAA head 0
 9: NTAA tail
 10: NTAA wire
---------------NTAA Table----------
-0: blank
-1: wire
-2: wire 0
-3: wire 1
-4: tail
+
 
 
 @TABLE
@@ -44,205 +39,155 @@ var any.4 = any.0
 var any.5 = any.0
 var any.6 = any.0
 var any.7 = any.0
-var anyNTAA.0 = {8,9,10,7}
-var anyNTAA.1 = anyNTAA.0
+var anyhead.0 = {8,1,4,7}
 var _a0.0 = {1,7}
 var _a0.1 = _a0.0
 var _b0.0 = {4,7}
 var _b0.1 = _b0.0
-var notNTAAHead.0 = {0,1,2,3,4,5,6,9,10}
-var notNTAAHead.1 = notNTAAHead.0
-var notNTAAHead.2 = notNTAAHead.0
-var notNTAAHead.3 = notNTAAHead.0
-var _e0.0 = {0,2,3,4,5,6,8,9,10}
+var _e0.0 = {0,1,2,3,4,5,6}
 var _e0.1 = _e0.0
 var _e0.2 = _e0.0
 var _e0.3 = _e0.0
-var _e0.4 = _e0.0
-var _e0.5 = _e0.0
-var _e0.6 = _e0.0
-var _f0.0 = {0,1,2,3,5,6,8,9,10}
+var _f0.0 = {0,1,2,3,4,5,6,8,9,10}
 var _f0.1 = _f0.0
-var _f0.2 = _f0.0
-var _f0.3 = _f0.0
-var _f0.4 = _f0.0
-var _f0.5 = _f0.0
-var _f0.6 = _f0.0
-var _g0.0 = {8,7}
+var _g0.0 = {0,1,2,3,4,5,6,9,10}
 var _g0.1 = _g0.0
 var _g0.2 = _g0.0
+var _g0.3 = _g0.0
 var _h0.0 = {0,1,2,3,4,5,6,7,8,9}
 var _h0.1 = _h0.0
 var _h0.2 = _h0.0
 var _h0.3 = _h0.0
-var _i0.0 = {1,2,4}
-var _j0.0 = {8,7}
+var _i0.0 = {0,2,3,4,5,6,8,9,10}
+var _i0.1 = _i0.0
+var _i0.2 = _i0.0
+var _i0.3 = _i0.0
+var _i0.4 = _i0.0
+var _i0.5 = _i0.0
+var _i0.6 = _i0.0
+var _j0.0 = {0,1,2,3,5,6,8,9,10}
 var _j0.1 = _j0.0
-var _k0.0 = {1,4}
+var _j0.2 = _j0.0
+var _j0.3 = _j0.0
+var _j0.4 = _j0.0
+var _j0.5 = _j0.0
+var _j0.6 = _j0.0
+var _k0.0 = {3,6}
 var _k0.1 = _k0.0
+var _l0.0 = {9,10}
+var _m0.0 = {1,2,4}
+var _n0.0 = {1,4}
+var _n0.1 = _n0.0
 
+# --------------NTAA--------------
+# 0: blank
+# 1: wire {w}
+# 2: wire 0 {h0}
+# 3: wire 1 {h1}
+# 4: tail {t}
+# h = (h0, h1)
+# ht = (h, t)
+# wht = (w, ht)
+# wt = (w, t)
+#### symmetries: nutshell.AlternatingPermute
+# NEVER put a head where there would be an adjacent tail
+# w, t, any ~ 3; w
+Fusion.ruel
+10, 9, any.0, any.1, any.2, any.3, any.4, any.5, any.6, 10
+#### symmetries: rotate4reflect
+# Split at T
+# w, w, h, w, --wht; [2]
+Fusion.ruel
+10, 10, any.0, _e0.0, any.1, 10, any.2, anyNTAAHead.0, any.3, anyNTAAHead.0
+#### symmetries: nutshell.AlternatingPermute
+# Signals wait at intersections
+# w, w ~ 2, any ~ 2; w
+Fusion.ruel
+10, 10, any.0, 10, any.1, any.2, any.3, any.4, any.5, 10
+10, 10, any.0, any.1, any.2, 10, any.3, any.4, any.5, 10
+# Sum=1 signal combination
+# w, h1, h1, any ~ 2; h0
+Fusion.ruel
+10, 7, any.0, 7, any.1, any.2, any.3, any.4, any.5, 8
+10, 7, any.0, any.1, any.2, 7, any.3, any.4, any.5, 8
+# w, h, h0, --h1 ~ 2; [1]
+Fusion.ruel
+10, 8, any.0, _f0.0, any.1, _f0.1, any.2, anyNTAAHead.0, any.3, anyNTAAHead.0
+10, 8, any.0, _f0.0, any.1, anyNTAAHead.0, any.2, _f0.1, any.3, anyNTAAHead.0
+# Signals
+# w, h, --h ~ 3; [1]
+Fusion.ruel
+10, _g0.0, any.0, _g0.1, any.1, _g0.2, any.2, anyNTAAHead.0, any.3, anyNTAAHead.0
+# h, --w ~ 4; t
+Fusion.ruel
+anyNTAAHead.0, _h0.0, any.0, _h0.1, any.1, _h0.2, any.2, _h0.3, any.3, 9
+# t, --h ~ 4; w
+Fusion.ruel
+9, _g0.0, any.0, _g0.1, any.1, _g0.2, any.2, _g0.3, any.3, 10
+# -----------------Wireworld++-----------------
 #### symmetries: permute
-# wireworld heads
+# wireworld heads go immediately to tail
 Fusion.ruel
 1, any.0, any.1, any.2, any.3, any.4, any.5, any.6, any.7, 2
 2, any.0, any.1, any.2, any.3, any.4, any.5, any.6, any.7, 3
 Fusion.ruel
 4, any.0, any.1, any.2, any.3, any.4, any.5, any.6, any.7, 5
 5, any.0, any.1, any.2, any.3, any.4, any.5, any.6, any.7, 6
-# wireworld transitions
+# wireworld++ transitions
 Fusion.ruel
-3, _a0.0, _e0.0, _e0.1, _e0.2, _e0.3, _e0.4, _e0.5, _e0.6, 1
-3, _e0.0, _a0.0, _e0.1, _e0.2, _e0.3, _e0.4, _e0.5, _e0.6, 1
-3, _a0.0, _e0.0, _e0.1, _e0.2, _a0.1, _e0.3, _e0.4, _e0.5, 1
-3, _e0.0, _a0.0, _e0.1, _a0.1, _e0.2, _e0.3, _e0.4, _e0.5, 1
-3, _e0.0, _a0.0, _e0.1, _e0.2, _e0.3, _a0.1, _e0.4, _e0.5, 1
-3, _a0.0, _e0.0, _e0.1, _a0.1, _e0.2, _e0.3, _e0.4, _e0.5, 1
-3, _a0.0, _e0.0, _a0.1, _e0.1, _e0.2, _e0.3, _e0.4, _e0.5, 1
-3, _a0.0, _a0.1, _e0.0, _e0.1, _e0.2, _e0.3, _e0.4, _e0.5, 1
+3, _a0.0, _i0.0, _i0.1, _i0.2, _i0.3, _i0.4, _i0.5, _i0.6, 1
+3, _i0.0, _a0.0, _i0.1, _i0.2, _i0.3, _i0.4, _i0.5, _i0.6, 1
+3, _a0.0, _i0.0, _a0.1, _i0.1, _i0.2, _i0.3, _i0.4, _i0.5, 1
+3, _a0.0, _i0.0, _i0.1, _i0.2, _a0.1, _i0.3, _i0.4, _i0.5, 1
+3, _a0.0, _a0.1, _i0.0, _i0.1, _i0.2, _i0.3, _i0.4, _i0.5, 1
+3, _a0.0, _i0.0, _i0.1, _a0.1, _i0.2, _i0.3, _i0.4, _i0.5, 1
+3, _i0.0, _a0.0, _i0.1, _a0.1, _i0.2, _i0.3, _i0.4, _i0.5, 1
+3, _i0.0, _a0.0, _i0.1, _i0.2, _i0.3, _a0.1, _i0.4, _i0.5, 1
 Fusion.ruel
-3, _b0.0, _f0.0, _f0.1, _f0.2, _b0.1, _f0.3, _f0.4, _f0.5, 1
-3, _f0.0, _b0.0, _f0.1, _b0.1, _f0.2, _f0.3, _f0.4, _f0.5, 1
-3, _f0.0, _b0.0, _f0.1, _f0.2, _f0.3, _b0.1, _f0.4, _f0.5, 1
-3, _b0.0, _f0.0, _f0.1, _b0.1, _f0.2, _f0.3, _f0.4, _f0.5, 1
-3, _b0.0, _f0.0, _b0.1, _f0.1, _f0.2, _f0.3, _f0.4, _f0.5, 1
-3, _b0.0, _b0.1, _f0.0, _f0.1, _f0.2, _f0.3, _f0.4, _f0.5, 1
+3, _b0.0, _j0.0, _b0.1, _j0.1, _j0.2, _j0.3, _j0.4, _j0.5, 1
+3, _b0.0, _j0.0, _j0.1, _j0.2, _b0.1, _j0.3, _j0.4, _j0.5, 1
+3, _b0.0, _b0.1, _j0.0, _j0.1, _j0.2, _j0.3, _j0.4, _j0.5, 1
+3, _b0.0, _j0.0, _j0.1, _b0.1, _j0.2, _j0.3, _j0.4, _j0.5, 1
+3, _j0.0, _b0.0, _j0.1, _b0.1, _j0.2, _j0.3, _j0.4, _j0.5, 1
+3, _j0.0, _b0.0, _j0.1, _j0.2, _j0.3, _b0.1, _j0.4, _j0.5, 1
 Fusion.ruel
-6, _a0.0, _e0.0, _e0.1, _e0.2, _e0.3, _e0.4, _e0.5, _e0.6, 4
-6, _e0.0, _a0.0, _e0.1, _e0.2, _e0.3, _e0.4, _e0.5, _e0.6, 4
-6, _a0.0, _e0.0, _e0.1, _e0.2, _a0.1, _e0.3, _e0.4, _e0.5, 4
-6, _e0.0, _a0.0, _e0.1, _a0.1, _e0.2, _e0.3, _e0.4, _e0.5, 4
-6, _e0.0, _a0.0, _e0.1, _e0.2, _e0.3, _a0.1, _e0.4, _e0.5, 4
-6, _a0.0, _e0.0, _e0.1, _a0.1, _e0.2, _e0.3, _e0.4, _e0.5, 4
-6, _a0.0, _e0.0, _a0.1, _e0.1, _e0.2, _e0.3, _e0.4, _e0.5, 4
-6, _a0.0, _a0.1, _e0.0, _e0.1, _e0.2, _e0.3, _e0.4, _e0.5, 4
+6, _a0.0, _i0.0, _i0.1, _i0.2, _i0.3, _i0.4, _i0.5, _i0.6, 4
+6, _i0.0, _a0.0, _i0.1, _i0.2, _i0.3, _i0.4, _i0.5, _i0.6, 4
+6, _a0.0, _i0.0, _a0.1, _i0.1, _i0.2, _i0.3, _i0.4, _i0.5, 4
+6, _a0.0, _i0.0, _i0.1, _i0.2, _a0.1, _i0.3, _i0.4, _i0.5, 4
+6, _a0.0, _a0.1, _i0.0, _i0.1, _i0.2, _i0.3, _i0.4, _i0.5, 4
+6, _a0.0, _i0.0, _i0.1, _a0.1, _i0.2, _i0.3, _i0.4, _i0.5, 4
+6, _i0.0, _a0.0, _i0.1, _a0.1, _i0.2, _i0.3, _i0.4, _i0.5, 4
+6, _i0.0, _a0.0, _i0.1, _i0.2, _i0.3, _a0.1, _i0.4, _i0.5, 4
 Fusion.ruel
-6, _b0.0, _f0.0, _f0.1, _f0.2, _f0.3, _f0.4, _f0.5, _f0.6, 4
-6, _f0.0, _b0.0, _f0.1, _f0.2, _f0.3, _f0.4, _f0.5, _f0.6, 4
-# NoTomeAtAll
+6, _b0.0, _j0.0, _j0.1, _j0.2, _j0.3, _j0.4, _j0.5, _j0.6, 4
+6, _j0.0, _b0.0, _j0.1, _j0.2, _j0.3, _j0.4, _j0.5, _j0.6, 4
+# --------------DECA---------------
 #### symmetries: rotate4reflect
+# blocked by adjacent NTAA head1
 Fusion.ruel
-10, _g0.0, any.0, any.1, any.2, any.3, any.4, any.5, any.6, 10 # A wire with an adjacent head never turns to a head
-Fusion.ruel
-_g0.0, _h0.0, any.0, _h0.1, any.1, _h0.2, any.2, _h0.3, any.3, 9 # A head only becomes tail if there is no wire
-Fusion.ruel
-9, notNTAAHead.0, any.0, notNTAAHead.1, any.1, notNTAAHead.2, any.2, notNTAAHead.3, any.3, 10 # A tail only becomes wire if there is no head
+_k0.1, 0, any.0, _k0.0, any.1, 7, any.2, anyhead.0, any.3, _k0.1
 # use NTAA heads as DECA red/green blocker states
+#### symmetries: nutshell.AlternatingPermute
 Fusion.ruel
-8, _i0.0, any.0, notNTAAHead.0, any.1, notNTAAHead.1, any.2, notNTAAHead.2, any.3, 7 # toggle when next to strong head, strong tail, or weak head and no NTAA neighbors
-7, _i0.0, any.0, notNTAAHead.0, any.1, notNTAAHead.1, any.2, notNTAAHead.2, any.3, 8
-# NTAA XOR/Onehot gates
+_l0.0, _e0.0, any.0, _e0.1, any.1, _e0.2, any.2, _e0.3, any.3, 8
 #### symmetries: rotate4reflect
 Fusion.ruel
-10, 0, any.0, _j0.1, any.1, 10, any.2, _j0.1, any.3, 8
-10, 10, any.0, _j0.0, any.1, 10, any.2, _j0.0, any.3, 10
-Fusion.ruel
-10, 0, any.0, 7, any.1, 10, any.2, 8, any.3, 7
-10, 10, any.0, 7, any.1, 10, any.2, 8, any.3, 10
-10, 0, any.0, 7, any.1, 10, any.2, 8, any.3, 7
-10, 10, any.0, 7, any.1, 10, any.2, 8, any.3, 10
+8, _g0.0, any.0, _g0.1, any.1, _g0.2, any.2, _m0.0, any.3, 7 # toggle when next to strong head, strong tail, or weak head and no NTAA neighbors
+7, _g0.0, any.0, _g0.1, any.1, _g0.2, any.2, _m0.0, any.3, 8
+# ---------------some crossover------------
+# activate when Wireworld++heads
 #### symmetries: permute
 Fusion.ruel
-10, 10, 10, anyNTAA.0, anyNTAA.1, 10
-10, 10, anyNTAA.0, 10, anyNTAA.1, 10
+10, _n0.0, any.0, any.1, any.2, any.3, any.4, any.5, any.6, 8
+10, any.0, _n0.0, any.1, any.2, any.3, any.4, any.5, any.6, 8
 Fusion.ruel
-10, 10, 10, 10, 7, 7, 7, 8, 8, 7
-10, 10, 10, 10, 7, 7, 8, 7, 8, 7
-10, 10, 10, 10, 7, 7, 8, 8, 7, 7
-10, 10, 10, 10, 7, 8, 7, 7, 8, 7
-10, 10, 10, 10, 7, 8, 7, 8, 7, 7
-10, 10, 10, 10, 8, 7, 7, 7, 8, 7
-10, 10, 10, 7, 10, 7, 7, 8, 8, 7
-10, 10, 10, 7, 10, 7, 8, 7, 8, 7
-10, 10, 10, 7, 10, 7, 8, 8, 7, 7
-10, 10, 10, 7, 10, 8, 7, 7, 8, 7
-10, 10, 10, 7, 10, 8, 7, 8, 7, 7
-10, 10, 10, 7, 10, 8, 8, 7, 7, 7
-10, 10, 10, 7, 7, 10, 7, 8, 8, 7
-10, 10, 10, 7, 7, 10, 8, 7, 8, 7
-10, 10, 10, 7, 7, 10, 8, 8, 7, 7
-10, 10, 10, 7, 7, 7, 10, 8, 8, 7
-10, 10, 10, 7, 7, 7, 8, 10, 8, 7
-10, 10, 10, 7, 7, 7, 8, 8, 10, 7
-10, 10, 10, 7, 7, 8, 10, 7, 8, 7
-10, 10, 10, 7, 7, 8, 10, 8, 7, 7
-10, 10, 10, 7, 7, 8, 7, 10, 8, 7
-10, 10, 10, 7, 7, 8, 7, 8, 10, 7
-10, 10, 10, 7, 7, 8, 8, 10, 7, 7
-10, 10, 10, 7, 7, 8, 8, 7, 10, 7
-10, 10, 10, 7, 8, 10, 7, 7, 8, 7
-10, 10, 10, 7, 8, 10, 7, 8, 7, 7
-10, 10, 10, 7, 8, 10, 8, 7, 7, 7
-10, 10, 10, 7, 8, 7, 10, 7, 8, 7
-10, 10, 10, 7, 8, 7, 10, 8, 7, 7
-10, 10, 10, 7, 8, 7, 7, 10, 8, 7
-10, 10, 10, 7, 8, 7, 7, 8, 10, 7
-10, 10, 10, 7, 8, 7, 8, 10, 7, 7
-10, 10, 10, 7, 8, 7, 8, 7, 10, 7
-10, 10, 10, 7, 8, 8, 10, 7, 7, 7
-10, 10, 10, 7, 8, 8, 7, 10, 7, 7
-10, 10, 10, 8, 10, 7, 7, 7, 8, 7
-10, 10, 10, 8, 10, 7, 7, 8, 7, 7
-10, 10, 10, 8, 10, 7, 8, 7, 7, 7
-10, 10, 10, 8, 10, 8, 7, 7, 7, 7
-10, 10, 10, 8, 7, 10, 7, 7, 8, 7
-10, 10, 10, 8, 7, 10, 7, 8, 7, 7
-10, 10, 10, 8, 7, 10, 8, 7, 7, 7
-10, 10, 10, 8, 7, 7, 10, 7, 8, 7
-10, 10, 10, 8, 7, 7, 10, 8, 7, 7
-10, 10, 10, 8, 7, 7, 7, 10, 8, 7
-10, 10, 10, 8, 7, 7, 7, 8, 10, 7
-10, 10, 10, 8, 7, 7, 8, 10, 7, 7
-10, 10, 10, 8, 7, 8, 10, 7, 7, 7
-10, 10, 10, 8, 7, 8, 7, 10, 7, 7
-10, 10, 10, 8, 8, 10, 7, 7, 7, 7
-10, 10, 10, 8, 8, 7, 10, 7, 7, 7
-10, 10, 10, 8, 8, 7, 7, 10, 7, 7
-10, 10, 7, 10, 7, 10, 7, 8, 8, 7
-10, 10, 7, 10, 7, 10, 8, 7, 8, 7
-10, 10, 7, 10, 7, 7, 10, 8, 8, 7
-10, 10, 7, 10, 7, 7, 8, 10, 8, 7
-10, 10, 7, 10, 7, 8, 10, 7, 8, 7
-10, 10, 7, 10, 7, 8, 10, 8, 7, 7
-10, 10, 7, 10, 7, 8, 7, 10, 8, 7
-10, 10, 7, 10, 8, 10, 7, 7, 8, 7
-10, 10, 7, 10, 8, 7, 10, 7, 8, 7
-10, 10, 7, 7, 10, 7, 10, 8, 8, 7
-10, 10, 7, 7, 10, 7, 8, 10, 8, 7
-10, 10, 7, 7, 10, 8, 10, 7, 8, 7
-10, 10, 7, 7, 10, 8, 10, 8, 7, 7
-10, 10, 7, 7, 10, 8, 7, 10, 8, 7
-10, 10, 7, 7, 7, 10, 8, 10, 8, 7
-10, 10, 7, 8, 10, 7, 10, 7, 8, 7
-10, 10, 7, 8, 10, 7, 10, 8, 7, 7
-10, 10, 8, 7, 10, 7, 10, 7, 8, 7
-10, 7, 10, 7, 10, 7, 10, 8, 8, 7
-10, 7, 10, 7, 10, 8, 10, 7, 8, 7
-10, 7, 10, 7, 10, 8, 10, 8, 7, 7
-10, 7, 10, 7, 10, 8, 7, 8, 10, 7
-10, 7, 10, 8, 10, 7, 10, 8, 7, 7
-10, 7, 10, 8, 10, 8, 10, 7, 7, 7
-Fusion.ruel
-10, 10, 10, 10, 10, 10, _g0.0, _g0.1, _g0.2, 8
-10, 10, 10, 10, 10, _g0.0, 10, _g0.1, _g0.2, 8
-10, 10, 10, 10, 10, _g0.0, _g0.1, 10, _g0.2, 8
-10, 10, 10, 10, 10, _g0.0, _g0.1, _g0.2, 10, 8
-10, 10, 10, 10, _g0.0, 10, 10, _g0.1, _g0.2, 8
-10, 10, 10, 10, _g0.0, 10, _g0.1, 10, _g0.2, 8
-10, 10, 10, _g0.0, 10, 10, 10, _g0.1, _g0.2, 8
-10, 10, 10, _g0.0, 10, 10, _g0.1, 10, _g0.2, 8
-10, 10, 10, _g0.0, 10, _g0.1, 10, 10, _g0.2, 8
-10, 10, 10, _g0.0, 10, _g0.1, 10, _g0.2, 10, 8
-# activate when Wireworld++heads
-Fusion.ruel
-10, _k0.0, any.0, any.1, any.2, any.3, any.4, any.5, any.6, 8
-10, any.0, _k0.0, any.1, any.2, any.3, any.4, any.5, any.6, 8
-Fusion.ruel
-10, _k0.0, _k0.1, any.0, any.1, any.2, any.3, any.4, any.5, 7
-10, _k0.0, any.0, _k0.1, any.1, any.2, any.3, any.4, any.5, 7
-10, _k0.0, any.0, any.1, _k0.1, any.2, any.3, any.4, any.5, 7
-10, _k0.0, any.0, any.1, any.2, _k0.1, any.3, any.4, any.5, 7
-10, any.0, _k0.0, any.1, _k0.1, any.2, any.3, any.4, any.5, 7
-10, any.0, _k0.0, any.1, any.2, any.3, _k0.1, any.4, any.5, 7
+10, _n0.0, _n0.1, any.0, any.1, any.2, any.3, any.4, any.5, 7
+10, _n0.0, any.0, _n0.1, any.1, any.2, any.3, any.4, any.5, 7
+10, _n0.0, any.0, any.1, _n0.1, any.2, any.3, any.4, any.5, 7
+10, _n0.0, any.0, any.1, any.2, _n0.1, any.3, any.4, any.5, 7
+10, any.0, _n0.0, any.1, _n0.1, any.2, any.3, any.4, any.5, 7
+10, any.0, _n0.0, any.1, any.2, any.3, _n0.1, any.4, any.5, 7
 
 @COLORS
 0 0 0 0
