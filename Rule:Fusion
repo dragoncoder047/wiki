@@ -79,6 +79,8 @@ var _m0.6 = _m0.0
 var _n0.0 = {1,4}
 var _n0.1 = _n0.0
 
+var anyNTAAHead.0 = {7,8}
+
 _e0.1, 0, any.0, _e0.0, any.1, 7, any.2, anyhead.0, any.3, _e0.1
 _f0.0, _g0.0, any.0, _g0.1, any.1, _g0.2, any.2, _g0.3, any.3, 8
 8, _h0.0, any.0, _i0.0, any.1, _i0.1, any.2, _i0.2, any.3, 7
