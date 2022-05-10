@@ -28,6 +28,18 @@ anyhead = (StrongHead, WeakHead, anyNTAAHead)
 anyNTAA = (anyNTAAHead, NTAATail, NTAAWire)
 anyNTAAHead = (NTAAHead0, NTAAHead1)
 
+# --------------DECA---------------
+
+symmetries: rotate4reflect
+# blocked by adjacent NTAA head1
+(WeakWire, StrongWire), N Background, E (WeakWire, StrongWire), S NTAAHead1, W anyhead; [0]
+
+# use NTAA heads as DECA red/green blocker states
+symmetries: nutshell.AlternatingPermute
+(NTAAWire, NTAATail), --anyNTAA ~ 4, any ~ 4; NTAAHead0
+symmetries: rotate4reflect
+(NTAAHead0, NTAAHead1), N (StrongHead, StrongTail, WeakHead), E --anyNTAAHead, S --anyNTAAHead, W --anyNTAAHead; [0: (NTAAHead1, NTAAHead0)] # toggle when next to strong head, strong tail, or weak head and no NTAA neighbors
+
 # --------------NTAA--------------
 # 0: blank
 # 1: wire {w}
@@ -81,18 +93,6 @@ StrongWire, <12 / (StrongHead, NTAAHead1) / any - (StrongHead, NTAAHead1)>; Stro
 StrongWire, <2 / (WeakHead, NTAAHead1) / any - (WeakHead, NTAAHead1)>; StrongHead
 WeakWire, <12 / (WeakHead, NTAAHead1) / any - (WeakHead, NTAAHead1)>; WeakHead
 WeakWire, <1 / (StrongHead, NTAAHead1) / any - (StrongHead, NTAAHead1)>; WeakHead
-
-# --------------DECA---------------
-
-symmetries: rotate4reflect
-# blocked by adjacent NTAA head1
-(WeakWire, StrongWire), N Background, E (WeakWire, StrongWire), S NTAAHead1, W anyhead; [0]
-
-# use NTAA heads as DECA red/green blocker states
-symmetries: nutshell.AlternatingPermute
-(NTAAWire, NTAATail), --anyNTAA ~ 4, any ~ 4; NTAAHead0
-symmetries: rotate4reflect
-(NTAAHead0, NTAAHead1), N (StrongHead, StrongTail, WeakHead), E --anyNTAAHead, S --anyNTAAHead, W --anyNTAAHead; [0: (NTAAHead1, NTAAHead0)] # toggle when next to strong head, strong tail, or weak head and no NTAA neighbors
 
 # ---------------some crossover------------
 
