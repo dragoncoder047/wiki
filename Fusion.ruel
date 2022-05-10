@@ -37,9 +37,12 @@ symmetries: rotate4reflect
 # use NTAA heads as DECA red/green blocker states
 symmetries: nutshell.AlternatingPermute
 (NTAAWire, NTAATail), --anyNTAA ~ 4, any ~ 4; NTAAHead0
+symmetries: permute
+# don't change at all if no NTAA neighbors
+anyNTAAHead, --anyNTAA ~ 8; [0]
 symmetries: rotate4reflect
 # toggle when next to strong head, strong tail, or weak head and no NTAA neighbors
-(NTAAHead0, NTAAHead1), N (StrongHead, StrongTail, WeakHead), E --anyNTAAHead, S --anyNTAAHead, W --anyNTAAHead; [0: (NTAAHead1, NTAAHead0)]
+anyNTAAHead, N (StrongHead, StrongTail, WeakHead), E --anyNTAAHead, S --anyNTAAHead, W --anyNTAAHead; [0: anyNTAAHead >> 1]
 
 # --------------NTAA--------------
 # 0: blank
