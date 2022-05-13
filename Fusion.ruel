@@ -52,10 +52,6 @@ symmetries: rotate4reflect
 # wht = (w, ht)
 # wt = (w, t)
 
-symmetries: permute
-# prevent backfiring
-anyNTAAHead, WWTail; NTAATail
-
 symmetries: nutshell.AlternatingPermute
 # NEVER put a head where there would be an adjacent tail
 # w, t, any ~ 3; w
@@ -90,7 +86,7 @@ NTAATail, --anyNTAAHead ~ 4, any ~ 4; NTAAWire
 
 symmetries: permute
 # prevent backfiring when transitioning into NTAA wire
-#(StrongTail, WeakTail), NTAAHead1; [0]
+(StrongTail, WeakTail), NTAAHead1 ~ 1, any ~ 7; [0]
 # wireworld heads go immediately to tail
 (StrongHead, StrongTail), any; [0: (StrongTail, StrongWire)]
 (WeakHead, WeakTail), any; [0: (WeakTail, WeakWire)]
@@ -112,7 +108,7 @@ NTAAWire, (anyhead - anyNTAA) ~ 1, any; NTAAHead0
 000: Background
 FF0: StrongHead
 770: StrongTail 
-B50: StrongWire
+830: StrongWire
 FFF: WeakHead
 888: WeakTail
 333: WeakWire
