@@ -27,6 +27,7 @@ States:
 neighborhood: Moore
 anyNTAAHead = (NTAAHead0, NTAAHead1)
 anyhead = (StrongHead, WeakHead, anyNTAAHead)
+WWTail = (WeakTail, StrongTail)
 anyWW = (anyhead, WeakWire, StrongWire)
 anyNTAA = (anyNTAAHead, NTAATail, NTAAWire)
 
@@ -50,6 +51,10 @@ symmetries: rotate4reflect
 # ht = (h, t)
 # wht = (w, ht)
 # wt = (w, t)
+
+symmetries: permute
+# prevent backfiring
+anyNTAAHead, WWTail; NTAATail
 
 symmetries: nutshell.AlternatingPermute
 # NEVER put a head where there would be an adjacent tail
@@ -85,7 +90,7 @@ NTAATail, --anyNTAAHead ~ 4, any ~ 4; NTAAWire
 
 symmetries: permute
 # prevent backfiring when transitioning into NTAA wire
-(StrongTail, WeakTail), NTAAHead1; [0]
+#(StrongTail, WeakTail), NTAAHead1; [0]
 # wireworld heads go immediately to tail
 (StrongHead, StrongTail), any; [0: (StrongTail, StrongWire)]
 (WeakHead, WeakTail), any; [0: (WeakTail, WeakWire)]
