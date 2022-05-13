@@ -105,7 +105,7 @@ NTAAWire, (anyhead - anyNTAA) ~ 1, any; NTAAHead0
 000: Background
 FF0: StrongHead
 770: StrongTail 
-702: StrongWire
+A62: StrongWire
 FFF: WeakHead
 888: WeakTail
 333: WeakWire
