@@ -85,7 +85,7 @@ NTAATail, --anyNTAAHead ~ 4, any ~ 4; NTAAWire
 
 symmetries: permute
 # prevent backfiring when transitioning into NTAA wire
-(StrongTail, WeakTail), NTAAHead1 ~ 1, any ~ 7; [0]
+(StrongTail, WeakTail), NTAAHead1; [0]
 # wireworld heads go immediately to tail
 (StrongHead, StrongTail), any; [0: (StrongTail, StrongWire)]
 (WeakHead, WeakTail), any; [0: (WeakTail, WeakWire)]
