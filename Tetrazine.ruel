@@ -102,18 +102,18 @@ symmetries: permute
 NTAAWire, (anyhead - anyNTAA) ~ 2, any; NTAAHead1
 NTAAWire, (anyhead - anyNTAA) ~ 1, any; NTAAHead0
 
-@COLORS
-
-000: Background
-FF0: StrongHead
-770: StrongTail 
-830: StrongWire
-FFF: WeakHead
-888: WeakTail
-333: WeakWire
-0FF: NTAAHead1
-777: NTAAHead0
-07C: NTAATail
-007: NTAAWire
-F00: DECA0
-0F0: DECA1
+#@COLORS
+#
+#000: Background
+#FF0: StrongHead
+#760: StrongTail 
+#830: StrongWire
+#FFF: WeakHead
+#888: WeakTail
+#333: WeakWire
+#0FF: NTAAHead1
+#777: NTAAHead0
+#07C: NTAATail
+#007: NTAAWire
+#F00: DECA0
+#0F0: DECA1
