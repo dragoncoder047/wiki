@@ -5,7 +5,7 @@ import sys
 files = glob.glob('*.ruel')
 
 for file in files:
-    rulename = file.rstrip('.ruel')
+    rulename = file.removesuffix('.ruel')
     exitcode = os.system(f'python3 -m nutshell transpile {file} .')
     if exitcode > 0:
         sys.exit(exitcode)
