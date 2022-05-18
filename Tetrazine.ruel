@@ -111,9 +111,9 @@ FF0: StrongHead
 FFF: WeakHead
 888: WeakTail
 333: WeakWire
-A0A: NTAAHead1
-707: NTAAHead0
-777: NTAATail
+0FF: NTAAHead1
+777: NTAAHead0
+07C: NTAATail
 007: NTAAWire
 F00: DECA0
 0F0: DECA1
