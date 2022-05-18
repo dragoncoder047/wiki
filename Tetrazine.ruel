@@ -1,9 +1,8 @@
-@NUTSHELL Fusion
+@NUTSHELL Tetrazine
 
-Fusion is a rule I devised that is a 'fusion' of many different wire-like rules. It steals properties from:
+Tetrazine is a rule I devised that is a 'fusion' of many different wire-like rules. It steals properties from:
 * Wireworld++ => tiny AND/XOR gates
 * NoTimeAtAll => stagnating signals
-* Digital => diagonal inputs, orthogonal outputs
 * DECA => tiny AND/ANDNOT gates
 
 States:
