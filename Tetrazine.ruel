@@ -105,15 +105,15 @@ NTAAWire, (anyhead - anyNTAA) ~ 1, any; NTAAHead0
 @COLORS
 
 000: Background
-FF0: StrongHead
-760: StrongTail 
-830: StrongWire
-FFF: WeakHead
-888: WeakTail
-333: WeakWire
-0FF: NTAAHead1
-777: NTAAHead0
-07C: NTAATail
-007: NTAAWire
-F00: DECA0
-0F0: DECA1
+090: StrongHead
+060: StrongTail 
+030: StrongWire
+900: WeakHead
+600: WeakTail
+003: WeakWire
+099: NTAAHead1
+033: NTAAHead0
+600: NTAATail
+300: NTAAWire
+999: DECA0
+333: DECA1
