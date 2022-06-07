@@ -33,7 +33,7 @@ anyNTAA = (anyNTAAHead, NTAATail, NTAAWire)
 # --------------DECA---------------
 
 symmetries: rotate4reflect
-# blocked by adjacent NTAA head1
+# blocked by adjacent DECA head1
 (WeakWire, StrongWire), N Background, E (WeakWire, StrongWire), S DECA1, W anyhead; [0]
 
 # toggle when lone head next to
@@ -115,5 +115,5 @@ NTAAWire, (anyhead - anyNTAA) ~ 1, any; NTAAHead0
 033: NTAAHead0
 600: NTAATail
 300: NTAAWire
-999: DECA0
-333: DECA1
+333: DECA0
+999: DECA1
