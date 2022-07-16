@@ -108,8 +108,8 @@ NTAAWire, (anyhead - anyNTAA) ~ 1, any; NTAAHead0
 090: StrongHead
 060: StrongTail 
 030: StrongWire
-900: WeakHead
-600: WeakTail
+990: WeakHead
+660: WeakTail
 003: WeakWire
 099: NTAAHead1
 033: NTAAHead0
