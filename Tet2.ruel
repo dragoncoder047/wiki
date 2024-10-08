@@ -1,7 +1,8 @@
 @NUTSHELL Tet2
 
 Tet2 is the successor to Tetrazine, where the DECA blocker heads change behavior slightly.
-They "write" their values to NTAA data passing below, instead of toggling when NTAA heads pass.
+They don't toggle when NTAA heads pass, and NTAA data will be cleared to 0 with the DECA1 cells
+to match the behavior of the Wireworld wires.
 
 States:
 
@@ -23,19 +24,19 @@ States:
 @TABLE
 neighborhood: Moore
 anyNTAAHead = (NTAAHead0, NTAAHead1)
-anyWWHead = (StrongHead, WeakHead)
+anyhead = (StrongHead, WeakHead, anyNTAAHead)
 WWTail = (WeakTail, StrongTail)
-anyWW = (anyWWHead, WeakWire, StrongWire)
+anyWW = (anyhead, WeakWire, StrongWire)
 anyNTAA = (anyNTAAHead, NTAATail, NTAAWire)
 
 # --------------DECA---------------
 
 symmetries: rotate4reflect
 # blocked by adjacent DECA head1
-(WeakWire, StrongWire), N Background, E (WeakWire, StrongWire), S DECA1, W (anyWWHead, anyNTAAHead); [0]
+(WeakWire, StrongWire), N Background, E (WeakWire, StrongWire), S DECA1, W anyhead; [0]
 
-# toggle when lone WW (stronghead/strongtail/weakhead) next to
-(DECA0, DECA1), NW --anyWW, N (anyWWHead, StrongTail), NE --anyWW; [0: (DECA1, DECA0)]
+# toggle when lone head next to
+(DECA0, DECA1), NW --anyWW, N (anyhead - NTAAHead, NTAATail, StrongTail), NE --anyWW; [0: (DECA1, DECA0)]
 
 # --------------NTAA--------------
 # 0: blank
@@ -71,14 +72,10 @@ NTAAWire, NTAAHead1 ~ 2, any ~ 4, any ~ 2; NTAAHead0
 # w, h, h0, --h1 ~ 2; [1]
 NTAAWire, anyNTAAHead, any ~ 2, NTAAHead0, any ~ 2, --NTAAHead1 ~ 2; [1]
 
-# DECA interjection: DECA0/1 adjacent writes type
-symmeries: rotate4reflect
-NTAAWire, N DECA0, E anyNTAAHead, W NTAAWire, S Background; NTAAHead1
-NTAAWire, N DECA1, E anyNTAAHead, W NTAAWire, S Background; NTAAHead0
-
-symmetries: nutshell.AlternatingPermute
 # Signals
 # w, h, --h ~ 3; [1]
+# DECA
+NTAAWire, anyNTAAHead, any ~ 2, --anyNTAAHead ~ 2, any ~ 2, DECA1; NTAAHead0
 NTAAWire, anyNTAAHead, any ~ 2, --anyNTAAHead ~ 3, any ~ 2; [1]
 # h, --w ~ 4; t
 anyNTAAHead, --NTAAWire ~ 4, any ~ 4; NTAATail
@@ -103,21 +100,21 @@ WeakWire, <1 / (StrongHead, NTAAHead1) / any - (StrongHead, NTAAHead1)>; WeakHea
 
 # activate when Wireworld++heads
 symmetries: permute
-NTAAWire, anyWWHead ~ 2, any; NTAAHead1
-NTAAWire, anyWWhead ~ 1, any; NTAAHead0
+NTAAWire, (anyhead - anyNTAA) ~ 2, any; NTAAHead1
+NTAAWire, (anyhead - anyNTAA) ~ 1, any; NTAAHead0
 
 @COLORS
 
 000: Background
 0F0: StrongHead
 080: StrongTail 
-050: StrongWire
+040: StrongWire
 FF0: WeakHead
 880: WeakTail
-005: WeakWire
+004: WeakWire
 0FF: NTAAHead1
 088: NTAAHead0
 800: NTAATail
-500: NTAAWire
-555: DECA0
+400: NTAAWire
+444: DECA0
 FFF: DECA1
