@@ -61,6 +61,7 @@ symmetries: rotate4reflect
 NTAAWire, N NTAAWire, E anyNTAAHead, S NTAAWire, W --anyNTAA; [E]
 
 symmetries: nutshell.AlternatingPermute
+
 # Signals wait at intersections
 # w, w ~ 2, any ~ 2; w
 NTAAWire, NTAAWire ~ 2, any ~ 4, any ~ 2; NTAAWire
